@@ -1,13 +1,14 @@
-import { actionTypes } from "../common/types";
+import { actionTypes } from '../common/types'
 
 const initialState = {
   user: {
     userIsLoggedIn: false,
   },
-  token: "",
-};
+  token: '',
+}
 
 export const authReducer = (state = initialState, { type, payload }) => {
+  console.log('res', payload)
   switch (type) {
     case actionTypes.LOGIN:
       return {
@@ -16,7 +17,7 @@ export const authReducer = (state = initialState, { type, payload }) => {
           userIsLoggedIn: true,
           ...payload.result,
         },
-      };
+      }
 
     case actionTypes.SIGNUP:
       return {
@@ -25,7 +26,7 @@ export const authReducer = (state = initialState, { type, payload }) => {
           userIsLoggedIn: true,
           ...payload.result,
         },
-      };
+      }
 
     case actionTypes.SET_WAREHOUSE_ADDRESS:
       return {
@@ -34,14 +35,14 @@ export const authReducer = (state = initialState, { type, payload }) => {
           ...state.user,
           wareHouseAddress: payload.result,
         },
-      };
+      }
 
     case actionTypes.TOKEN:
       return {
         ...state,
         token: payload.result,
-      };
+      }
     default:
-      return state;
+      return state
   }
-};
+}
