@@ -56,6 +56,7 @@ const useStyles = makeStyles((theme) => ({
   main: {
     height: '85%',
     marginTop: '30px',
+    width:'-webkit-fill-available'
     // marginLeft: '0px'
   },
   paper: {
@@ -394,11 +395,6 @@ export default function LoginBoxed(props) {
               </form>
             </div>
           </Grid>
-<<<<<<< HEAD
-          <Box mt={5}>
-        <Copyright />
-      </Box>
-=======
           <Grid
             style={{
               marginTop: '30px',
@@ -407,7 +403,6 @@ export default function LoginBoxed(props) {
           >
             <Copyright />
           </Grid>
->>>>>>> 21fd0dc3d633c69c049c96f761aac6ecf1637bef
         </div>
       </Grid>
     </div>
