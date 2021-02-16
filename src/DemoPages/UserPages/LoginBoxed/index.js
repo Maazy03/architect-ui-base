@@ -19,13 +19,13 @@ import Art_Img from '../../../assets/img/logo_small.png'
 import LoginWithGmail from './loginWithGmail'
 function Copyright() {
   return (
-    <Typography variant='body2' color='textSecondary' align='center'>
-      {'Copyright © '}
-      <Link color='inherit' href='https://material-ui.com/'>
+    <Typography variant='body2' color='light' align='center'>
+      {'Copyright © 2021'}
+      {/* <Link color='inherit' href='https://material-ui.com/'>
         AfricanArt.International
       </Link>{' '}
       {new Date().getFullYear()}
-      {'.'}
+      {'.'} */}
     </Typography>
   )
 }
@@ -92,36 +92,61 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
+// const useStateWithLocalStorage = (localStorageKey) => {
+//   const [email, setEmail] = React.useState(
+//     localStorage.getItem(localStorageKey1) || ''
+//   )
+//   const [password, setPassword] = React.useState(
+//     localStorage.getItem(localStorageKey2) || ''
+//   )
+
+//   React.useEffect(() => {
+//     localStorage.setItem(localStorageKey1, value)
+//     localStorage.setItem(localStorageKey2, value)
+//   }, [value])
+
+//   return [value, setValue]
+// }
+
 export default function LoginBoxed(props) {
+  const [localValue, setlocalValue] = React.useState(
+    localStorage.getItem('myValueInLocalStorage') || ''
+  )
+
+  // const [email, setEmail] = useStateWithLocalStorage('myEmailInLocalStorage')
+  // const [password, setPassword] = useStateWithLocalStorage(
+  //   'myPasswordInLocalStorage'
+  // )
+  // const onChange1 = (event) => setEmail(event.target.value)
+  // const onChange2 = (event) => setPassword(event.target.value)
   const user = useSelector((state) => state)
   const classes = useStyles()
   const dispatch = useDispatch()
   const [stateLoader, setStateLoader] = useState(false)
-  const [state, setState] = useState({ email: '', password: '' })
+  const [state, setState] = useState({ email: '', password: '', count: 0 })
   const [stateIsEmailValid, setStateIsEmailValid] = useState(true)
   const [stateIsPasswordValid, setStateIsPasswordValid] = useState(true)
   const [stateIsFormValid, setStateIsFormValid] = useState(false)
 
   const _onChange = (event) => {
+    // React.useEffect(() => {
+    //   localStorage.setItem('myValueInLocalStorage', localValue);
+    // }, [localValue]);
+
     const { name, value } = event.target
+    console.log('GROOOVEW', event.target.value)
+    // localStorage.setItem('myValueInLocalStorage', event.target.value)
+    // localStorage.setItem('myValueInLocalStorage2', event.target.value)
+
+    // setlocalValue(event.target.value)
     setState((prevState) => ({ ...prevState, [name]: value }))
+    console.log('Sewt', value)
   }
 
   function onBlurHandler(event) {
     const { name, value } = event.target
     validateField(name, value)
   }
-
-  function countryToFlag(isoCode) {
-    return typeof String.fromCodePoint !== 'undefined'
-      ? isoCode
-          .toUpperCase()
-          .replace(/./g, (char) =>
-            String.fromCodePoint(char.charCodeAt(0) + 127397)
-          )
-      : isoCode
-  }
-
   function validateField(fieldName, value) {
     switch (fieldName) {
       case 'email':
@@ -149,28 +174,63 @@ export default function LoginBoxed(props) {
     setStateIsFormValid(emailValid && passwordValid)
   }
 
-  function onClickForgotPassword() {
-    props.history.push({
-      pathname: '/pages/forgot-password-boxed',
-    })
-  }
-
   const onLogin = async () => {
     props.history.push({
       pathname: '/dashboards',
     })
-    // try {
-    //   setStateLoader(true)
-    //   const result = await dispatch(authActions.login(state))
-    // } catch (error) {
-    //   if (error.response) {
-    //     utils._toast(error.response.data.responseMessage, 'error')
-    //   } else {
-    //     utils._toast('Netwrok Error', 'error')
-    //   }
-    //   setStateLoader(false)
-    //   setState({ email: '', password: '' })
-    // }
+    const arr = localStorage.getItem('credentials')
+      ? JSON.parse(localStorage.getItem('credentials'))
+      : []
+    let check = false
+    console.log(arr)
+    if (arr.length == 0) {
+      console.log('AAAAAAAAAA')
+      state.count = 1
+      arr.push(state)
+      localStorage.setItem('credentials', JSON.stringify(arr))
+    } else {
+      const data = arr.map((x) => {
+        // console.log(data)
+        console.log('state.email', state.email)
+        if (state.email == x.email) {
+          console.log('if chal')
+          x.count++
+          check = true
+          return x
+
+          //
+        }
+        return x
+        // localStorage.setItem('credentials', JSON.stringify([arr]))
+      })
+      console.log('DATTTTTTTT',data)
+      if (!check) {
+        console.log('stateeeee', state)
+        state.count = 1
+        arr.push(state)
+        localStorage.setItem('credentials', JSON.stringify(arr))
+      }else{
+        localStorage.setItem('credentials', JSON.stringify(data))
+      }
+
+      console.log('----', data)
+
+      // props.history.push({
+      //   pathname: '/dashboards',
+      // })
+      // try {
+      //   setStateLoader(true)
+      //   const result = await dispatch(authActions.login(state))
+      // } catch (error) {
+      //   if (error.response) {
+      //     utils._toast(error.response.data.responseMessage, 'error')
+      //   } else {
+      //     utils._toast('Netwrok Error', 'error')
+      //   }
+      //   setStateLoader(false)
+      //   setState({ email: '', password: '' })
+      // }
+    }
   }
 
   return (
@@ -183,6 +243,8 @@ export default function LoginBoxed(props) {
             justifyContent: 'center',
             width: '100vh',
             height: '80vh',
+            flexDirection: 'column',
+            alignItems: 'center',
           }}
         >
           <CssBaseline />
@@ -269,28 +331,7 @@ export default function LoginBoxed(props) {
                   invalid={!stateIsPasswordValid}
                   valid={state.password ? stateIsPasswordValid : false}
                 />
-                {/* <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              error={!stateIsPasswordValid}
-              label="Password"
-              type="password"
-              helperText={
-                stateIsPasswordValid ? "" : utils.Constants.passwordError
-              }
-              id="password"
-              autoComplete="current-password"
-              type="password"
-              name="Confirm password"
-              placeholder="Confirm Password here..."
-              value={state.password}
-              onChange={_onChange}
-              onBlur={onBlurHandler}
-              invalid={!stateIsPasswordValid}
-              valid={state.password ? stateIsPasswordValid : false}
-            /> */}
+
                 <div
                   style={{
                     display: 'flex',
@@ -306,7 +347,9 @@ export default function LoginBoxed(props) {
                     variant='contained'
                     color='primary'
                     // width='40px'
-                    disabled={stateLoader || !state.email || !state.password.length>7 }
+                    disabled={
+                      stateLoader || !state.email || !state.password.length > 7
+                    }
                     className={classes.submit}
                     onClick={onLogin}
                   >
@@ -351,9 +394,14 @@ export default function LoginBoxed(props) {
               </form>
             </div>
           </Grid>
-          {/* <Box mt={5}>
-        <Copyright />
-      </Box> */}
+          <Grid
+            style={{
+              marginTop: '30px',
+              color: 'white',
+            }}
+          >
+            <Copyright />
+          </Grid>
         </div>
       </Grid>
     </div>

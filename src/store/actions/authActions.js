@@ -1,6 +1,9 @@
 import { actionTypes, apiCreator, actionCreator } from "../common";
 
 export const login = (body) => (dispatch) => {
+  console.log(
+"gfdgfsd",body
+  )
   return apiCreator(
     { method: "POST", endPoint: "/admin", body: body },
     actionTypes.LOGIN,

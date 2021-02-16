@@ -1,7 +1,7 @@
 import { actionCreator } from "../common";
 import axios from "axios";
-export const serverURL = process.env.REACT_APP_API_URL;
-// export const serverURL = "http://localhost:4000";
+// export const serverURL = process.env.REACT_APP_API_URL;
+export const serverURL = "http://localhost:3000";
 export const cloudinaryUrl = process.env.REACT_APP_CLOUDINARY_URL;
 export const uploadPreset = process.env.REACT_APP_UPLOAD_PRESET;
 

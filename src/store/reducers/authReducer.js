@@ -8,7 +8,6 @@ const initialState = {
 }
 
 export const authReducer = (state = initialState, { type, payload }) => {
-  console.log('res', payload)
   switch (type) {
     case actionTypes.LOGIN:
       return {
