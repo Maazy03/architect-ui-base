@@ -36,11 +36,10 @@ export const isContactNumberValid = (number) => {
 
 export const isPasswordValid = (password) => {
   return (
-    password.length > 5 &&
-    password.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/)
+    password.length > 5 
   );
 };
-
+// && password.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/)
 export const isPasswordRepeatValid = (passwordRepeat, password) => {
   return isPasswordValid(passwordRepeat) && passwordRepeat === password;
 };
