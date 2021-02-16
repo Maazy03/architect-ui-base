@@ -351,9 +351,9 @@ export default function LoginBoxed(props) {
               </form>
             </div>
           </Grid>
-          {/* <Box mt={5}>
+          <Box mt={5}>
         <Copyright />
-      </Box> */}
+      </Box>
         </div>
       </Grid>
     </div>
