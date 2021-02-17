@@ -175,7 +175,7 @@ export default function LoginBoxed(props) {
       localStorage.setItem('credentials', JSON.stringify(arr))
     }
     else {
-      const data = arr.map((x) => {
+      const data =arr && arr.length >0 && arr.map((x) => {
         // console.log(data)
         console.log('state.email', state.email)
         console.log('x.email', x.email)
