@@ -56,7 +56,7 @@ const useStyles = makeStyles((theme) => ({
   main: {
     height: '85%',
     marginTop: '30px',
-    width:'-webkit-fill-available'
+    width: '-webkit-fill-available'
     // marginLeft: '0px'
   },
   paper: {
@@ -92,22 +92,6 @@ const useStyles = makeStyles((theme) => ({
     cursor: 'pointer',
   },
 }))
-
-// const useStateWithLocalStorage = (localStorageKey) => {
-//   const [email, setEmail] = React.useState(
-//     localStorage.getItem(localStorageKey1) || ''
-//   )
-//   const [password, setPassword] = React.useState(
-//     localStorage.getItem(localStorageKey2) || ''
-//   )
-
-//   React.useEffect(() => {
-//     localStorage.setItem(localStorageKey1, value)
-//     localStorage.setItem(localStorageKey2, value)
-//   }, [value])
-
-//   return [value, setValue]
-// }
 
 export default function LoginBoxed(props) {
   const [localValue, setlocalValue] = React.useState(
@@ -184,16 +168,18 @@ export default function LoginBoxed(props) {
       : []
     let check = false
     console.log(arr)
-    if (arr.length == 0) {
+    if (arr && arr.length == 0) {
       console.log('AAAAAAAAAA')
       state.count = 1
       arr.push(state)
       localStorage.setItem('credentials', JSON.stringify(arr))
-    } else {
+    }
+    else {
       const data = arr.map((x) => {
         // console.log(data)
         console.log('state.email', state.email)
-        if (state.email == x.email) {
+        console.log('x.email', x.email)
+        if (x.length > 0 && state.email == x.email) {
           console.log('if chal')
           x.count++
           check = true
@@ -204,13 +190,13 @@ export default function LoginBoxed(props) {
         return x
         // localStorage.setItem('credentials', JSON.stringify([arr]))
       })
-      console.log('DATTTTTTTT',data)
+      console.log('DATTTTTTTT', data)
       if (!check) {
         console.log('stateeeee', state)
         state.count = 1
         arr.push(state)
         localStorage.setItem('credentials', JSON.stringify(arr))
-      }else{
+      } else {
         localStorage.setItem('credentials', JSON.stringify(data))
       }
 
@@ -362,8 +348,8 @@ export default function LoginBoxed(props) {
                         />
                       </div>
                     ) : (
-                      'Login to Dashboard'
-                    )}
+                        'Login to Dashboard'
+                      )}
                   </Button>
                 </div>
                 <hr color='#a6a6a6' />
