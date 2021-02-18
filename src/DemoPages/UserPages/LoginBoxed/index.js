@@ -162,7 +162,7 @@ export default function LoginBoxed(props) {
 
   const onLogin = async () => {
     props.history.push({
-      pathname: '/dashboards',
+      pathname: '/pages/LoggedIn',
     })
     const arr = localStorage.getItem('credentials')
       ? JSON.parse(localStorage.getItem('credentials'))
@@ -340,7 +340,7 @@ export default function LoginBoxed(props) {
                     color='primary'
                     // width='40px'
                     disabled={
-                      stateLoader || !state.email || !state.password.length > 7
+                      stateLoader || !state.email || state.password.length < 8
                     }
                     className={classes.submit}
                     onClick={onLogin}
