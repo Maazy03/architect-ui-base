@@ -19,6 +19,8 @@ const Dashboards = ({ match }) => (
     <AppHeader />
     <div className="app-main">
       <AppSidebar />
+      <h1>I AM LOGINED</h1>
+
       <div className="app-main__outer">
         <div className="app-main__inner">
           <Route path={`${match.url}`} component={AnalyticsDashboard} />
