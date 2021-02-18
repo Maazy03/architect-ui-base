@@ -10,11 +10,13 @@ const Dashboards = lazy(() => import("../../DemoPages/Dashboards"));
 const Orders = lazy(() => import("../../DemoPages/Orders"));
 const Arts = lazy(() => import("../../DemoPages/Arts"));
 const UserPages = lazy(() => import("../../DemoPages/UserPages"));
+const LoggedIn = lazy(() => import("../../DemoPages/UserPages/LoginBoxed/LoggedIn"));
 const PortraitOrders = lazy(() => import("../../DemoPages/PortraitOrders"));
 const Reserves = lazy(() => import("../../DemoPages/Reserves"));
 const ListSellOrders = lazy(() => import("../../DemoPages/ListSellOrders"));
 const Auction = lazy(() => import("../../DemoPages/Auction"));
 const Trades = lazy(() => import("../../DemoPages/Trades"));
+
 const Settings = lazy(() => import("../../DemoPages/Settings"));
 
 const AppMain = () => {
@@ -47,9 +49,6 @@ const AppMain = () => {
           <Route path="/portrait_orders" component={PortraitOrders} />
         </Suspense>
 
-        <Suspense fallback={<ReactSpinners />}>
-          <Route path="/settings" component={Settings} />
-        </Suspense>
 
         <Suspense fallback={<ReactSpinners />}>
           <Route path="/order" component={Orders} />
@@ -75,6 +74,12 @@ const AppMain = () => {
       <Fragment>
         <Suspense fallback={<ReactSpinners />}>
           <Route path="/pages" component={UserPages} />
+        </Suspense>
+        <Suspense fallback={<ReactSpinners />}>
+          <Route path="/settings" component={Settings} />
+        </Suspense>
+        <Suspense fallback={<ReactSpinners />}>
+          <Route path="/pages/LoggedIn" component={LoggedIn} />
         </Suspense>
 
         <Route
