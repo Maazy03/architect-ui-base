@@ -28,6 +28,7 @@ export default class AnalyticsDashboard extends Component {
                         icon="pe-7s-graph2"
                     />
                     <AnalyticsDashboard1 />
+                    <h1>I AM LOGINED</h1>
                 </ReactCSSTransitionGroup>
             </Fragment>
         )

@@ -54,10 +54,11 @@ const useStyles = makeStyles((theme) => ({
     // backgroundPosition: 'center',
   },
   main: {
-    height: '85%',
+    height: '65%',
     marginTop: '30px',
-    width: '-webkit-fill-available'
-    // marginLeft: '0px'
+    // width: '-webkit-fill-available',
+    width: '90%'
+    // marginLeft: '0px',
   },
   paper: {
     // margin: theme.spacing(8, 4),
@@ -173,23 +174,25 @@ export default function LoginBoxed(props) {
       state.count = 1
       arr.push(state)
       localStorage.setItem('credentials', JSON.stringify(arr))
-    }
-    else {
-      const data = arr && arr.length > 0 && arr.map((x) => {
-        // console.log(data)
-        console.log('state.email', state.email)
-        console.log('x.email', x.email)
-        if (x.length > 0 && state.email == x.email) {
-          console.log('if chal')
-          x.count++
-          check = true
-          return x
+    } else {
+      const data =
+        arr &&
+        arr.length > 0 &&
+        arr.map((x) => {
+          // console.log(data)
+          console.log('state.email', state.email)
+          console.log('x.email', x.email)
+          if (x.length > 0 && state.email == x.email) {
+            console.log('if chal')
+            x.count++
+            check = true
+            return x
 
-          //
-        }
-        return x
-        // localStorage.setItem('credentials', JSON.stringify([arr]))
-      })
+            //
+          }
+          return x
+          // localStorage.setItem('credentials', JSON.stringify([arr]))
+        })
       console.log('DATTTTTTTT', data)
       if (!check) {
         console.log('stateeeee', state)
@@ -228,8 +231,9 @@ export default function LoginBoxed(props) {
             backgroundColor: 'slateblue',
             display: 'flex',
             justifyContent: 'center',
-            width: '100vh',
-            height: '80vh',
+            // width: 'flex',
+            width: "calc(100vh - 16px)",
+            height: '95vh',
             flexDirection: 'column',
             alignItems: 'center',
           }}
@@ -238,9 +242,10 @@ export default function LoginBoxed(props) {
           {/* <Grid item xs={false} sm={4} md={7} className={classes.image} /> */}
           <Grid
             item
-            xs={20}
-            sm={16}
-            md={10}
+            xs={12}
+            sm={12}
+            md={12}
+            lg={12}
             component={Paper}
             elevation={6}
             square
@@ -348,8 +353,8 @@ export default function LoginBoxed(props) {
                         />
                       </div>
                     ) : (
-                        'Login to Dashboard'
-                      )}
+                      'Login to Dashboard'
+                    )}
                   </Button>
                 </div>
                 <hr color='#a6a6a6' />
@@ -385,6 +390,7 @@ export default function LoginBoxed(props) {
             style={{
               marginTop: '30px',
               color: 'white',
+              marginBottom: '20px',
             }}
           >
             <Copyright />
