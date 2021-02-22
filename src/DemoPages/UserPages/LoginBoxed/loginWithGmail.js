@@ -17,6 +17,7 @@ export default function LoginWithGmail() {
   return (
     <div>
       <GoogleLogin
+      
         style={{ backgroundColor: 'black' }}
         clientId='891848691954-aiqk6bsmak8us3vvkj2oth5u0dui8mf4.apps.googleusercontent.com'
         buttonText='Sign in with Google'

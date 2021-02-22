@@ -17,6 +17,8 @@ import { useSelector } from 'react-redux'
 import { authActions } from '../../../store/actions'
 import Art_Img from '../../../assets/img/logo_small.png'
 import LoginWithGmail from './loginWithGmail'
+import firebase from '../../../config/firebase'
+
 function Copyright() {
   return (
     <Typography variant='body2' color='light' align='center'>
@@ -57,7 +59,7 @@ const useStyles = makeStyles((theme) => ({
     height: '65%',
     marginTop: '30px',
     // width: '-webkit-fill-available',
-    width: '90%'
+    width: '90%',
     // marginLeft: '0px',
   },
   paper: {
@@ -95,6 +97,52 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 export default function LoginBoxed(props) {
+  // const responseGoogle = (response) => {
+  //   console.log(response)
+  //   console.log(response.profileObj)
+  //   const arr = localStorage.getItem('credentials')
+  //     ? JSON.parse(localStorage.getItem('credentials'))
+  //     : []
+  //   arr.push()
+  //   localStorage.setItem('credentials', JSON.stringify(arr))
+  // }
+
+  const googleLogin = () => {
+    var provider = new firebase.auth.GoogleAuthProvider()
+    firebase
+      .auth()
+      .signInWithPopup(provider)
+      .then((result) => {
+        /** @type {firebase.auth.OAuthCredential} */
+        var credential = result.credential
+
+        // This gives you a Google Access Token. You can use it to access the Google API.
+        var token = credential.accessToken
+        // The signed-in user info.
+        var user = result.user
+        // ...\/////////
+        props.history.push({
+          pathname: '/pages/LoggedIn',
+        })
+        const arr = localStorage.getItem('credentials')
+      ? JSON.parse(localStorage.getItem('credentials'))
+      : []
+    arr.push(user.email)
+    localStorage.setItem('credentials', JSON.stringify(arr))
+        console.log('user', user.email)
+        console.log('token', token)
+      })
+      .catch((error) => {
+        // Handle Errors here.
+        var errorCode = error.code
+        var errorMessage = error.message
+        // The email of the user's account used.
+        var email = error.email
+        // The firebase.auth.AuthCredential type that was used.
+        var credential = error.credential
+        // ...
+      })
+  }
   const [localValue, setlocalValue] = React.useState(
     localStorage.getItem('myValueInLocalStorage') || ''
   )
@@ -166,7 +214,7 @@ export default function LoginBoxed(props) {
     })
     const arr = localStorage.getItem('credentials')
       ? JSON.parse(localStorage.getItem('credentials'))
-      : ['']
+      : ['hello world']
     let check = false
     console.log(arr)
     if (arr && arr.length == 0) {
@@ -232,7 +280,7 @@ export default function LoginBoxed(props) {
             display: 'flex',
             justifyContent: 'center',
             // width: 'flex',
-            width: "calc(100vh - 16px)",
+            width: 'calc(100vh - 16px)',
             height: '95vh',
             flexDirection: 'column',
             alignItems: 'center',
@@ -364,13 +412,15 @@ export default function LoginBoxed(props) {
                     justifyContent: 'center',
                   }}
                 >
-                  <LoginWithGmail
+                  <Button onClick={googleLogin}><LoginWithGmail/></Button>
+                  {/* <LoginWithGmail
+                  
                     style={{
                       backgroundColor: 'blue',
                       color: 'dark',
                     }}
                     className='dark'
-                  />
+                  /> */}
                 </div>
                 {/* <Grid container>
                   <Grid item xs>

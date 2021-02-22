@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import * as serviceWorker from './serviceWorker';
 import './assets/base.scss';
-import { HashRouter } from 'react-router-dom'
+import { BrowserRouter } from 'react-router-dom'
 import Main from './DemoPages/Main';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
@@ -18,9 +18,9 @@ const renderApp = Component => {
     ReactDOM.render(
         <Provider store={store}>
             <PersistGate loading={null} persistor={persistor}>
-                <HashRouter>
+                <BrowserRouter>
                     <Component />
-                </HashRouter>
+                </BrowserRouter>
             </PersistGate>
         </Provider>,
         rootElement
